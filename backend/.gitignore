@@ -1,0 +1,4 @@
+node_modules
+dist
+config/redis-prod.conf
+.env*

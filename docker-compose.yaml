@@ -1,0 +1,26 @@
+version: "3"
+services:
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - 6740:6739
+    volumes:
+      - ./backend/config/redis-dev.conf:/redis.conf
+    command: ["redis-server", "/redis.conf"]
+
+  backend:
+    container_name: poke-search-server
+    build: ./backend
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    depends_on:
+      - redis
+
+  frontend:
+    container_name: poke-search-app
+    build: ./frontend
+    restart: unless-stopped
+    ports:
+      - 8081:80
