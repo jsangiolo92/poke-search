@@ -12,13 +12,15 @@ type SelectedMoveAction = {
   move: Move;
 };
 
+type MovesState = {
+  selectedMoves: Move[];
+  allMoves: Move[];
+};
+
 const SelectedMovesContext = createContext(null);
 
 const initialState = [];
-const selectedMovesContextReducer = (
-  state: Move[],
-  action: SelectedMoveAction,
-) => {
+const selectedMovesContextReducer = (state: Move[], action: SelectedMoveAction) => {
   switch (action.type) {
     case "ADD_MOVE":
       const newState = [...state, action.move];
@@ -34,14 +36,9 @@ const selectedMovesContextReducer = (
 };
 
 const SelectedMovesContextProvider = ({ children }) => {
-  const [selectedMovesState, dispatch] = useReducer(
-    selectedMovesContextReducer,
-    initialState,
-  );
+  const [selectedMovesState, dispatch] = useReducer(selectedMovesContextReducer, initialState);
   return (
-    <SelectedMovesContext.Provider value={{ selectedMovesState, dispatch }}>
-      {children}
-    </SelectedMovesContext.Provider>
+    <SelectedMovesContext.Provider value={{ selectedMovesState, dispatch }}>{children}</SelectedMovesContext.Provider>
   );
 };
 
