@@ -1,16 +1,12 @@
 import React, { FC, useState, useEffect, useContext } from "react";
 import MoveCard from "../MoveCard/MoveCard";
 import { MovesContext } from "../../context/MovesContext";
-import { TextField } from "@material-ui/core";
+import { SearchContext } from "../../context/SearchContext";
 import Loading from "../Loading/Loading";
 
 const containerStyle = {
   display: "flex",
   flexWrap: "wrap" as "wrap",
-};
-
-const inputStyle = {
-  margin: "0.5rem 0 0 0 ",
 };
 
 type Move = {
@@ -26,13 +22,23 @@ const MovesList: FC = () => {
     dispatch,
   } = useContext(MovesContext);
 
+  const { searchState, dispatch: searchDispatch } = useContext(SearchContext);
+
   const [rowLimit, setRowLimit] = useState(24);
+  const [filteredMoves, setFilteredMoves] = useState([]);
+  const [displayedMoves, setDisplayedMoves] = useState([]);
 
   window.onscroll = () => {
     const diff = document.documentElement.offsetHeight - document.documentElement.scrollTop - window.innerHeight;
     if (diff <= 0) {
       setRowLimit(rowLimit + 4);
     }
+  };
+
+  const updateSearchResults = () => {
+    setRowLimit(24);
+    const searchResults = allMoves.filter((m) => m.name.includes(searchState));
+    setFilteredMoves(searchResults);
   };
 
   useEffect(() => {
@@ -49,44 +55,24 @@ const MovesList: FC = () => {
         });
     }
 
+    searchDispatch({
+      type: "UPDATE",
+      input: "",
+    });
+
     return () => {
       window.onscroll = null;
     };
   }, []);
 
-  ///// INPUT/SEARCH CODE BELOW
-
-  const [input, setInput] = useState("");
-  const [filteredMoves, setFilteredMoves] = useState([]);
-  const [displayedMoves, setDisplayedMoves] = useState([]);
-
-  const updateSearchResults = () => {
-    console.log("running updateSearchResults");
-    setRowLimit(24);
-    const searchResults = allMoves.filter((m) => m.name.includes(input));
-    setFilteredMoves(searchResults);
-  };
-
-  useEffect(updateSearchResults, [input]);
+  useEffect(updateSearchResults, [searchState]);
 
   useEffect(() => {
     setDisplayedMoves(filteredMoves.slice(0, rowLimit));
   }, [rowLimit, filteredMoves]);
 
-  const onChange = (val) => {
-    setInput(val);
-  };
-
   return (
     <>
-      <TextField
-        value={input}
-        placeholder={"Search for a move"}
-        onChange={(e) => onChange(e.target.value)}
-        variant="outlined"
-        fullWidth
-        style={inputStyle}
-      ></TextField>
       <div style={containerStyle}>
         {!!displayedMoves.length &&
           displayedMoves.map((m) => {

@@ -3,6 +3,7 @@ import { RouteComponentProps } from "@reach/router";
 import { PokemonContext } from "../../context/PokemonContext";
 import MovesList from "../MovesList/MovesList";
 import MoveSelectionDisplay from "../MoveSelectionDisplay/MoveSelectionDisplay";
+import MoveSearchBar from "../MoveSearchBar/MoveSearchBar";
 
 const Home: FC<RouteComponentProps> = (props: RouteComponentProps) => {
   const { pokemonState, dispatch } = useContext(PokemonContext);
@@ -26,7 +27,8 @@ const Home: FC<RouteComponentProps> = (props: RouteComponentProps) => {
   return (
     <>
       <MoveSelectionDisplay />
-      <MovesList />;
+      <MoveSearchBar />
+      <MovesList />
     </>
   );
 };
