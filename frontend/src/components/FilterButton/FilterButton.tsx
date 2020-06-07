@@ -1,4 +1,4 @@
-import React, { FC, Children } from "react";
+import React, { FC } from "react";
 import { Button } from "@material-ui/core";
 
 type VariantType = "text" | "contained" | "outlined";

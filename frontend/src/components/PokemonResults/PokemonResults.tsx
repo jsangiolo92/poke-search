@@ -9,25 +9,13 @@ import VersionButtons from "../VersionButtons/VersionButtons";
 import LearnMethodButtons from "../LearnMethodButtons/LearnMethodButtons";
 import FilterSelectionDisplay from "../FilterSelectionDisplay/FilterSelectionDisplay";
 import Loading from "../Loading/Loading";
+import { Pokemon } from "../../types";
 
-type VersionData = {
-  learnMethod: string;
+type FilterState = {
+  moves: string[];
+  pokemonType: string;
   version: string;
-};
-
-type Move = {
-  id: number;
-  name: string;
-  type: string;
-  damageClass: string;
-  versionData: VersionData[];
-};
-
-type Pokemon = {
-  id: number;
-  name: string;
-  moves: Move[];
-  types: string[];
+  learnMethod: string;
 };
 
 const containerStyle = {
@@ -66,13 +54,13 @@ const initialDisplayState = {
 };
 
 const PokemonResults: FC<RouteComponentProps> = (props: RouteComponentProps) => {
-  const { pokemonState, dispatch } = useContext(PokemonContext);
+  const { pokemonState } = useContext(PokemonContext);
   const {
     selectedMovesState: { selectedMoves },
   } = useContext(MovesContext);
 
-  const [displayedPokemon, setDisplayedPokmeon] = useState([initialDisplayState]);
-  const [filters, setFilters] = useState(initialFilterState);
+  const [displayedPokemon, setDisplayedPokmeon] = useState<Pokemon[]>([initialDisplayState]);
+  const [filters, setFilters] = useState<FilterState>(initialFilterState);
 
   useEffect(() => runMovesFilter(), [pokemonState, selectedMoves]);
 

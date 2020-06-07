@@ -2,13 +2,7 @@ import React, { FC, useContext } from "react";
 import { navigate } from "@reach/router";
 import { MovesContext } from "../../context/MovesContext";
 import { Button } from "@material-ui/core";
-
-type Move = {
-  id: number;
-  name: string;
-  type: string;
-  damageClass: string;
-};
+import { Move } from "../../types";
 
 const selectedMovesContainerStyles = {
   display: "flex",

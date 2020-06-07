@@ -7,8 +7,6 @@ type VersionButtonsProps = {
   selectVersion: (text: string, val: string) => void;
 };
 
-const buttonStyles = {};
-
 const VersionButtons: FC<VersionButtonsProps> = ({ selectVersion }: VersionButtonsProps) => {
   return (
     <>

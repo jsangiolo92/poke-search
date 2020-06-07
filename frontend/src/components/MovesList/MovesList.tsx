@@ -3,17 +3,11 @@ import MoveCard from "../MoveCard/MoveCard";
 import { MovesContext } from "../../context/MovesContext";
 import { SearchContext } from "../../context/SearchContext";
 import Loading from "../Loading/Loading";
+import { Move } from "../../types";
 
 const containerStyle = {
   display: "flex",
   flexWrap: "wrap" as "wrap",
-};
-
-type Move = {
-  id: number;
-  name: string;
-  type: string;
-  damageClass: string;
 };
 
 const MovesList: FC = () => {
@@ -24,9 +18,9 @@ const MovesList: FC = () => {
 
   const { searchState, dispatch: searchDispatch } = useContext(SearchContext);
 
-  const [rowLimit, setRowLimit] = useState(24);
-  const [filteredMoves, setFilteredMoves] = useState([]);
-  const [displayedMoves, setDisplayedMoves] = useState([]);
+  const [rowLimit, setRowLimit] = useState<number>(24);
+  const [filteredMoves, setFilteredMoves] = useState<Move[]>([]);
+  const [displayedMoves, setDisplayedMoves] = useState<Move[]>([]);
 
   window.onscroll = () => {
     const diff = document.documentElement.offsetHeight - document.documentElement.scrollTop - window.innerHeight;

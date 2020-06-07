@@ -1,17 +1,17 @@
 import React, { FC, useContext, useState, useEffect } from "react";
 import { MovesContext } from "../../context/MovesContext";
 import { Card, CardHeader } from "@material-ui/core";
-
-type Move = {
-  id: number;
-  name: string;
-  type: string;
-  damageClass: string;
-};
+import { Move } from "../../types";
 
 type MoveCardProps = {
   moveData: Move;
   selected: boolean;
+};
+
+type CardStyle = {
+  width: string;
+  margin: string;
+  background: string;
 };
 
 const cardInfoStyle = {
@@ -27,7 +27,7 @@ const MoveCard: FC<MoveCardProps> = ({ moveData, selected }: MoveCardProps) => {
     dispatch,
   } = useContext(MovesContext);
 
-  const [cardStyle, setCardStyle] = useState({
+  const [cardStyle, setCardStyle] = useState<CardStyle>({
     width: "20%",
     margin: "1rem",
     background: "white",

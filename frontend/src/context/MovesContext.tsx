@@ -1,11 +1,5 @@
 import React, { createContext, useReducer } from "react";
-
-type Move = {
-  id: number;
-  name: string;
-  type: string;
-  damageClass: string;
-};
+import { Move } from "../types";
 
 type MoveAction = {
   type: string;

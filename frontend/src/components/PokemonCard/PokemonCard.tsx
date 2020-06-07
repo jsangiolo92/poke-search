@@ -1,19 +1,6 @@
 import React, { FC } from "react";
 import { Card, CardHeader, CardMedia, FormHelperText } from "@material-ui/core";
-
-type Move = {
-  id: number;
-  name: string;
-  type: string;
-  damageClass: string;
-};
-
-type Pokemon = {
-  id: number;
-  name: string;
-  moves: Move[];
-  types: string[];
-};
+import { Pokemon } from "../../types";
 
 type PokemonCardProps = {
   pokemon: Pokemon;
