@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect, useContext } from "react";
 import MoveCard from "../MoveCard/MoveCard";
-import { SelectedMovesContext } from "../../context/SelectedMovesContext";
+import { MovesContext } from "../../context/MovesContext";
 import { TextField } from "@material-ui/core";
 import Loading from "../Loading/Loading";
 
@@ -21,9 +21,11 @@ type Move = {
 };
 
 const MovesList: FC = () => {
-  const { selectedMovesState } = useContext(SelectedMovesContext);
+  const {
+    selectedMovesState: { selectedMoves, allMoves },
+    dispatch,
+  } = useContext(MovesContext);
 
-  const [allMoves, setAllMoves]: [Move[], any] = useState([]);
   const [rowLimit, setRowLimit] = useState(24);
 
   window.onscroll = () => {
@@ -34,22 +36,23 @@ const MovesList: FC = () => {
   };
 
   useEffect(() => {
-    fetch(`${process.env.URL}/moves`)
-      .then((response) => response.json())
-      .then(({ moves }) => {
-        const movesArray = Object.keys(moves).map((key) => moves[key]);
-        setAllMoves(movesArray);
-        setFilteredMoves(movesArray);
-      });
+    if (!allMoves.length) {
+      fetch(`${process.env.URL}/moves`)
+        .then((response) => response.json())
+        .then(({ moves }) => {
+          const movesArray = Object.keys(moves).map((key) => moves[key]);
+          setFilteredMoves(movesArray);
+          dispatch({
+            type: "LOAD_ALL_MOVES",
+            allMoves: movesArray,
+          });
+        });
+    }
 
     return () => {
       window.onscroll = null;
     };
   }, []);
-
-  useEffect(() => {
-    console.log({ allMoves });
-  }, [allMoves]);
 
   ///// INPUT/SEARCH CODE BELOW
 
@@ -87,11 +90,11 @@ const MovesList: FC = () => {
       <div style={containerStyle}>
         {!!displayedMoves.length &&
           displayedMoves.map((m) => {
-            const selected = selectedMovesState.some((selectedMove: Move) => selectedMove.id === m.id);
+            const selected = selectedMoves.some((selectedMove: Move) => selectedMove.id === m.id);
             return <MoveCard key={m.id} moveData={m} selected={selected}></MoveCard>;
           })}
       </div>
-      {!allMoves.length && <Loading />}
+      {allMoves && !allMoves.length && <Loading />}
     </>
   );
 };

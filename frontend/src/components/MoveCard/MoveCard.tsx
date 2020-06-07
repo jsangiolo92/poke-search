@@ -1,5 +1,5 @@
 import React, { FC, useContext, useState, useEffect } from "react";
-import { SelectedMovesContext } from "../../context/SelectedMovesContext";
+import { MovesContext } from "../../context/MovesContext";
 import { Card, CardHeader } from "@material-ui/core";
 
 type Move = {
@@ -22,7 +22,10 @@ const cardInfoStyle = {
 
 const MoveCard: FC<MoveCardProps> = ({ moveData, selected }: MoveCardProps) => {
   const { name, type, damageClass } = moveData;
-  const { selectedMovesState, dispatch } = useContext(SelectedMovesContext);
+  const {
+    selectedMovesState: { selectedMoves },
+    dispatch,
+  } = useContext(MovesContext);
 
   const [cardStyle, setCardStyle] = useState({
     width: "20%",
@@ -32,19 +35,19 @@ const MoveCard: FC<MoveCardProps> = ({ moveData, selected }: MoveCardProps) => {
 
   useEffect(() => {
     setCardStyle({ ...cardStyle, background: selected ? "#A7DB8D" : "white" });
-  }, [selectedMovesState]);
+  }, [selectedMoves]);
 
-  const selectMove = (move: Move) => {
+  const selectMove = (selectedMove: Move) => {
     if (cardStyle.background === "white") {
       dispatch({
         type: "ADD_MOVE",
-        move,
+        selectedMove,
       });
       setCardStyle({ ...cardStyle, background: "#A7DB8D" });
     } else {
       dispatch({
         type: "REMOVE_MOVE",
-        move,
+        selectedMove,
       });
       setCardStyle({ ...cardStyle, background: "white" });
     }

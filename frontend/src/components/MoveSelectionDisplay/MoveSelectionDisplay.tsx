@@ -1,6 +1,6 @@
 import React, { FC, useContext } from "react";
 import { navigate } from "@reach/router";
-import { SelectedMovesContext } from "../../context/SelectedMovesContext";
+import { MovesContext } from "../../context/MovesContext";
 import { Button } from "@material-ui/core";
 
 type Move = {
@@ -24,7 +24,10 @@ const buttonStyles = {
 };
 
 const MoveSelectionDisplay: FC = () => {
-  const { selectedMovesState, dispatch } = useContext(SelectedMovesContext);
+  const {
+    selectedMovesState: { selectedMoves },
+    dispatch,
+  } = useContext(MovesContext);
 
   const goToResults = () => {
     navigate("results");
@@ -40,7 +43,7 @@ const MoveSelectionDisplay: FC = () => {
     <>
       <span>Currently Selected Moves</span>
       <div style={selectedMovesContainerStyles}>
-        {selectedMovesState.map((move: Move) => (
+        {selectedMoves.map((move: Move) => (
           <div key={move.id} style={selectedMoveStyles}>
             {move.name}
           </div>
@@ -48,7 +51,7 @@ const MoveSelectionDisplay: FC = () => {
       </div>
       <div>
         <Button
-          disabled={!selectedMovesState.length}
+          disabled={!selectedMoves.length}
           variant={"contained"}
           color="primary"
           onClick={goToResults}
@@ -56,7 +59,7 @@ const MoveSelectionDisplay: FC = () => {
         >
           Search Pokemon
         </Button>
-        {!!selectedMovesState.length && (
+        {!!selectedMoves.length && (
           <Button variant={"outlined"} color="secondary" onClick={clearSearchSelections}>
             Clear All Selections
           </Button>
