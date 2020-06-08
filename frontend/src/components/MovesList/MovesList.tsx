@@ -24,7 +24,7 @@ const MovesList: FC = () => {
 
   window.onscroll = () => {
     const diff = document.documentElement.offsetHeight - document.documentElement.scrollTop - window.innerHeight;
-    if (diff <= 0) {
+    if (diff <= 0.5) {
       setRowLimit(rowLimit + 4);
     }
   };

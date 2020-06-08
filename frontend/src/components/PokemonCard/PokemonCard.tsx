@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Card, CardHeader, CardMedia, FormHelperText } from "@material-ui/core";
+import { Card, CardHeader, CardMedia } from "@material-ui/core";
 import { Pokemon } from "../../types";
 
 type PokemonCardProps = {
