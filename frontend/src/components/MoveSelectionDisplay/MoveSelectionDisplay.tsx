@@ -1,22 +1,38 @@
 import React, { FC, useContext } from "react";
 import { navigate } from "@reach/router";
-import { SelectedMovesContext } from "../../context/SelectedMovesContext";
-import { Button } from "@material-ui/core";
-
-type Move = {
-  id: number;
-  name: string;
-  type: string;
-  damageClass: string;
-};
+import { MovesContext } from "../../context/MovesContext";
+import { Button, IconButton } from "@material-ui/core";
+import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+import { Move } from "../../types";
+import { typeColorMap } from "../../data/type-color-map";
 
 const selectedMovesContainerStyles = {
   display: "flex",
   flexDirection: "row" as "row",
+  flexWrap: "wrap" as "wrap",
 };
 
 const selectedMoveStyles = {
+  fontFamily: "Roboto",
   margin: "0.5rem 0.5rem 0.5rem",
+  color: "white",
+};
+
+const selectedMoveBackgroundStyles = {
+  borderRadius: "15%",
+  padding: "0.5rem",
+  margin: "0.5rem 0 0 0.5rem",
+  minWidth: "6rem",
+  height: "1rem",
+  display: "flex",
+  alignItems: "center",
+};
+
+const selectedMoveButtonStyles = {
+  marginLeft: "auto",
+  background: "white",
+  borderRadius: "50%",
+  cursor: "pointer",
 };
 
 const buttonStyles = {
@@ -24,10 +40,20 @@ const buttonStyles = {
 };
 
 const MoveSelectionDisplay: FC = () => {
-  const { selectedMovesState, dispatch } = useContext(SelectedMovesContext);
+  const {
+    selectedMovesState: { selectedMoves },
+    dispatch,
+  } = useContext(MovesContext);
 
   const goToResults = () => {
     navigate("results");
+  };
+
+  const removeSelectedMove = (selectedMove: Move) => {
+    dispatch({
+      type: "REMOVE_MOVE",
+      selectedMove,
+    });
   };
 
   const clearSearchSelections = () => {
@@ -38,17 +64,26 @@ const MoveSelectionDisplay: FC = () => {
 
   return (
     <>
-      <span>Currently Selected Moves</span>
-      <div style={selectedMovesContainerStyles}>
-        {selectedMovesState.map((move: Move) => (
-          <div key={move.id} style={selectedMoveStyles}>
-            {move.name}
-          </div>
-        ))}
+      <div style={{ display: "flex", flexDirection: "row" }}>
+        <span style={{ fontFamily: "Roboto", padding: "0.5rem", margin: "0.5rem 0 0 0" }}>
+          Currently Selected Moves
+        </span>
+        <div style={selectedMovesContainerStyles}>
+          {selectedMoves.map((move: Move) => (
+            <div key={move.id} style={{ ...selectedMoveBackgroundStyles, background: typeColorMap[move.type] }}>
+              <span style={selectedMoveStyles}>{move.name}</span>
+              <HighlightOffIcon
+                color="secondary"
+                style={selectedMoveButtonStyles}
+                onClick={() => removeSelectedMove(move)}
+              ></HighlightOffIcon>
+            </div>
+          ))}
+        </div>
       </div>
       <div>
         <Button
-          disabled={!selectedMovesState.length}
+          disabled={!selectedMoves.length}
           variant={"contained"}
           color="primary"
           onClick={goToResults}
@@ -56,7 +91,7 @@ const MoveSelectionDisplay: FC = () => {
         >
           Search Pokemon
         </Button>
-        {!!selectedMovesState.length && (
+        {!!selectedMoves.length && (
           <Button variant={"outlined"} color="secondary" onClick={clearSearchSelections}>
             Clear All Selections
           </Button>
