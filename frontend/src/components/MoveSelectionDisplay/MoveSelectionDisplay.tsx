@@ -30,8 +30,9 @@ const selectedMoveBackgroundStyles = {
 
 const selectedMoveButtonStyles = {
   marginLeft: "auto",
-  height: "1.25rem",
   background: "white",
+  borderRadius: "50%",
+  cursor: "pointer",
 };
 
 const buttonStyles = {
@@ -69,13 +70,13 @@ const MoveSelectionDisplay: FC = () => {
         </span>
         <div style={selectedMovesContainerStyles}>
           {selectedMoves.map((move: Move) => (
-            <div style={{ ...selectedMoveBackgroundStyles, background: typeColorMap[move.type] }}>
-              <span key={move.id} style={selectedMoveStyles}>
-                {move.name}
-              </span>
-              <IconButton style={selectedMoveButtonStyles} onClick={() => removeSelectedMove(move)}>
-                <HighlightOffIcon color="secondary"></HighlightOffIcon>
-              </IconButton>
+            <div key={move.id} style={{ ...selectedMoveBackgroundStyles, background: typeColorMap[move.type] }}>
+              <span style={selectedMoveStyles}>{move.name}</span>
+              <HighlightOffIcon
+                color="secondary"
+                style={selectedMoveButtonStyles}
+                onClick={() => removeSelectedMove(move)}
+              ></HighlightOffIcon>
             </div>
           ))}
         </div>
