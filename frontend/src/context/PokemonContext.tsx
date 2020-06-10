@@ -13,15 +13,8 @@ const pokemonContextReducer = (state, action) => {
 };
 
 const PokemonContextProvider = ({ children }) => {
-  const [pokemonState, dispatch] = useReducer(
-    pokemonContextReducer,
-    initialState,
-  );
-  return (
-    <PokemonContext.Provider value={{ pokemonState, dispatch }}>
-      {children}
-    </PokemonContext.Provider>
-  );
+  const [pokemonState, dispatch] = useReducer(pokemonContextReducer, initialState);
+  return <PokemonContext.Provider value={{ pokemonState, dispatch }}>{children}</PokemonContext.Provider>;
 };
 
 export { PokemonContext, PokemonContextProvider };

@@ -1,7 +1,7 @@
 import React, { FC, useContext, useEffect, useState } from "react";
 import { RouteComponentProps, navigate } from "@reach/router";
 import { PokemonContext } from "../../context/PokemonContext";
-import { SelectedMovesContext } from "../../context/SelectedMovesContext";
+import { MovesContext } from "../../context/MovesContext";
 import { Grid, Button } from "@material-ui/core";
 import PokemonCard from "../PokemonCard/PokemonCard";
 import TypeButtons from "../TypeButtons/TypeButtons";
@@ -9,25 +9,13 @@ import VersionButtons from "../VersionButtons/VersionButtons";
 import LearnMethodButtons from "../LearnMethodButtons/LearnMethodButtons";
 import FilterSelectionDisplay from "../FilterSelectionDisplay/FilterSelectionDisplay";
 import Loading from "../Loading/Loading";
+import { Pokemon } from "../../types";
 
-type VersionData = {
-  learnMethod: string;
+type FilterState = {
+  moves: string[];
+  pokemonType: string;
   version: string;
-};
-
-type Move = {
-  id: number;
-  name: string;
-  type: string;
-  damageClass: string;
-  versionData: VersionData[];
-};
-
-type Pokemon = {
-  id: number;
-  name: string;
-  moves: Move[];
-  types: string[];
+  learnMethod: string;
 };
 
 const containerStyle = {
@@ -66,29 +54,31 @@ const initialDisplayState = {
 };
 
 const PokemonResults: FC<RouteComponentProps> = (props: RouteComponentProps) => {
-  const { pokemonState, dispatch } = useContext(PokemonContext);
-  const { selectedMovesState } = useContext(SelectedMovesContext);
+  const { pokemonState } = useContext(PokemonContext);
+  const {
+    selectedMovesState: { selectedMoves },
+  } = useContext(MovesContext);
 
-  const [displayedPokemon, setDisplayedPokmeon] = useState([initialDisplayState]);
-  const [filters, setFilters] = useState(initialFilterState);
+  const [displayedPokemon, setDisplayedPokmeon] = useState<Pokemon[]>([initialDisplayState]);
+  const [filters, setFilters] = useState<FilterState>(initialFilterState);
 
-  useEffect(() => runMovesFilter(), [pokemonState, selectedMovesState]);
+  useEffect(() => runMovesFilter(), [pokemonState, selectedMoves]);
 
   useEffect(() => {
     console.log("filtered results ==> ", displayedPokemon);
   }, [displayedPokemon]);
 
   const runMovesFilter = () => {
-    if (pokemonState.length && selectedMovesState.length) {
+    if (pokemonState.length && selectedMoves.length) {
       const initialDisplayData = pokemonState.filter((pokemon) => {
-        return selectedMovesState.every((move) => pokemon.moves.hasOwnProperty(move.name));
+        return selectedMoves.every((move) => pokemon.moves.hasOwnProperty(move.name));
       });
       setDisplayedPokmeon(initialDisplayData);
     }
 
     setFilters({
       ...initialFilterState,
-      moves: selectedMovesState.map((selectedMove) => selectedMove.name),
+      moves: selectedMoves.map((selectedMove) => selectedMove.name),
     });
   };
 
@@ -103,7 +93,7 @@ const PokemonResults: FC<RouteComponentProps> = (props: RouteComponentProps) => 
 
   const applyVersionFilter = (version: string, displayText: string) => {
     const results = displayedPokemon.filter(({ moves: movesForPokemon }: Pokemon) => {
-      return selectedMovesState.every(({ name: moveName }) => {
+      return selectedMoves.every(({ name: moveName }) => {
         return movesForPokemon[moveName].versionData.some((versionObj) => versionObj.version === version);
       });
     });
@@ -116,7 +106,7 @@ const PokemonResults: FC<RouteComponentProps> = (props: RouteComponentProps) => 
 
   const applyLearnMethodFilter = (learnMethod: string, displayText: string) => {
     const results = displayedPokemon.filter(({ moves: movesForPokemon }: Pokemon) => {
-      return selectedMovesState.every(({ name: moveName }) => {
+      return selectedMoves.every(({ name: moveName }) => {
         return movesForPokemon[moveName].versionData.some((verionObj) => verionObj.learnMethod === learnMethod);
       });
     });
