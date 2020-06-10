@@ -1,16 +1,37 @@
 import React, { FC, useContext } from "react";
 import { navigate } from "@reach/router";
 import { MovesContext } from "../../context/MovesContext";
-import { Button } from "@material-ui/core";
+import { Button, IconButton } from "@material-ui/core";
+import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import { Move } from "../../types";
+import { typeColorMap } from "../../data/type-color-map";
 
 const selectedMovesContainerStyles = {
   display: "flex",
   flexDirection: "row" as "row",
+  flexWrap: "wrap" as "wrap",
 };
 
 const selectedMoveStyles = {
+  fontFamily: "Roboto",
   margin: "0.5rem 0.5rem 0.5rem",
+  color: "white",
+};
+
+const selectedMoveBackgroundStyles = {
+  borderRadius: "15%",
+  padding: "0.5rem",
+  margin: "0.5rem 0 0 0.5rem",
+  minWidth: "6rem",
+  height: "1rem",
+  display: "flex",
+  alignItems: "center",
+};
+
+const selectedMoveButtonStyles = {
+  marginLeft: "auto",
+  height: "1.25rem",
+  background: "white",
 };
 
 const buttonStyles = {
@@ -27,6 +48,13 @@ const MoveSelectionDisplay: FC = () => {
     navigate("results");
   };
 
+  const removeSelectedMove = (selectedMove: Move) => {
+    dispatch({
+      type: "REMOVE_MOVE",
+      selectedMove,
+    });
+  };
+
   const clearSearchSelections = () => {
     dispatch({
       type: "CLEAR_ALL",
@@ -35,13 +63,22 @@ const MoveSelectionDisplay: FC = () => {
 
   return (
     <>
-      <span style={{ fontFamily: "Roboto" }}>Currently Selected Moves</span>
-      <div style={selectedMovesContainerStyles}>
-        {selectedMoves.map((move: Move) => (
-          <div key={move.id} style={selectedMoveStyles}>
-            {move.name}
-          </div>
-        ))}
+      <div style={{ display: "flex", flexDirection: "row" }}>
+        <span style={{ fontFamily: "Roboto", padding: "0.5rem", margin: "0.5rem 0 0 0" }}>
+          Currently Selected Moves
+        </span>
+        <div style={selectedMovesContainerStyles}>
+          {selectedMoves.map((move: Move) => (
+            <div style={{ ...selectedMoveBackgroundStyles, background: typeColorMap[move.type] }}>
+              <span key={move.id} style={selectedMoveStyles}>
+                {move.name}
+              </span>
+              <IconButton style={selectedMoveButtonStyles} onClick={() => removeSelectedMove(move)}>
+                <HighlightOffIcon color="secondary"></HighlightOffIcon>
+              </IconButton>
+            </div>
+          ))}
+        </div>
       </div>
       <div>
         <Button
