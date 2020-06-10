@@ -8,6 +8,7 @@ type FilterButtonProps = {
   value: string;
   variant?: string;
   styles?: any;
+  icon?: any;
   clickHandler: (text: string, val: string) => void;
 };
 
@@ -16,11 +17,20 @@ const FilterButton: FC<FilterButtonProps> = ({
   value,
   variant,
   styles,
+  icon,
   clickHandler,
 }: FilterButtonProps) => {
+  let spanTextStyle = {};
+  if (icon) {
+    spanTextStyle = {
+      marginRight: "auto",
+    };
+  }
+
   return (
     <Button variant={variant as VariantType} style={styles} onClick={() => clickHandler(value, displayText)}>
-      {displayText}
+      {icon && icon()}
+      <span style={spanTextStyle}>{displayText}</span>
     </Button>
   );
 };

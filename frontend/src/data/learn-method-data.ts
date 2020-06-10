@@ -1,6 +1,10 @@
+import { returnArrowIcon, returnSaveIcon, returnChildIcon, returnSchoolIcon } from "./learn-method-icons";
+
 const baseButtonStyle = {
-  maxWidth: "6rem",
-  minWidth: "6rem",
+  width: "100%",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
 };
 
 const levelUp = {
@@ -8,6 +12,7 @@ const levelUp = {
   value: "level-up",
   variant: "outlined",
   styles: baseButtonStyle,
+  icon: returnArrowIcon,
 };
 
 const machine = {
@@ -15,6 +20,7 @@ const machine = {
   value: "machine",
   variant: "outlined",
   styles: baseButtonStyle,
+  icon: returnSaveIcon,
 };
 
 const breeding = {
@@ -22,6 +28,7 @@ const breeding = {
   value: "egg",
   variant: "outlined",
   styles: baseButtonStyle,
+  icon: returnChildIcon,
 };
 
 const tutor = {
@@ -29,6 +36,7 @@ const tutor = {
   value: "tutor",
   variant: "outlined",
   styles: baseButtonStyle,
+  icon: returnSchoolIcon,
 };
 
 const learnMethodButtonData = [levelUp, machine, breeding, tutor];

@@ -3,6 +3,7 @@ import { MovesContext } from "../../context/MovesContext";
 import { Card, CardMedia, Grid } from "@material-ui/core";
 import { Move } from "../../types";
 import { typeIconMap } from "../../data/icon-links";
+import { typeColorMap } from "../../data/type-color-map";
 
 type MoveCardProps = {
   moveData: Move;
@@ -13,26 +14,36 @@ type CardStyle = {
   width: string;
   margin: string;
   background: string;
+  minHeight: string;
 };
 
-const cardInfoStyle = {
+const cardInfoContainer = {
   display: "flex",
-  flexDirection: "column" as "column",
-  margin: "1rem 0 1rem 1rem",
-  fontFamily: "Roboto",
-  fontWeight: "bold" as "bold",
+  justifyContent: "start",
+  margin: "2rem 0 0 0",
 };
 
 const cardHeaderStyle = {
   fontFamily: "Roboto",
   margin: "1rem 0 0 1rem",
-  fontSize: "1.4rem",
+  fontSize: "1.3rem",
 };
 
 const imageStyle = {
   margin: "1rem 0 0 0",
   width: "2rem",
   height: "2rem",
+};
+
+const baseTypeStyle = {
+  fontFamily: "roboto",
+  color: "white",
+  padding: "0.25rem",
+  width: "40%",
+  textAlign: "center" as "center",
+  borderRadius: "15%",
+  margin: "0.5rem",
+  background: "black",
 };
 
 const MoveCard: FC<MoveCardProps> = ({ moveData, selected }: MoveCardProps) => {
@@ -46,6 +57,7 @@ const MoveCard: FC<MoveCardProps> = ({ moveData, selected }: MoveCardProps) => {
     width: "20%",
     margin: "1rem",
     background: "white",
+    minHeight: "8rem",
   });
 
   useEffect(() => {
@@ -77,15 +89,9 @@ const MoveCard: FC<MoveCardProps> = ({ moveData, selected }: MoveCardProps) => {
           <CardMedia image={typeIconMap[type]} style={imageStyle}></CardMedia>
         </Grid>
       </Grid>
-      <div style={cardInfoStyle}>
-        <div>
-          <span style={{ color: "#3f51b5" }}>Move Type: </span>
-          <span>{type}</span>
-        </div>
-        <div>
-          <span style={{ color: "#3f51b5" }}>Damage Type: </span>
-          <span>{damageClass}</span>
-        </div>
+      <div style={cardInfoContainer}>
+        <span style={{ ...baseTypeStyle, background: typeColorMap[type] }}>{type.toUpperCase()}</span>
+        <span style={{ ...baseTypeStyle, background: typeColorMap[damageClass] }}>{damageClass.toUpperCase()}</span>
       </div>
     </Card>
   );

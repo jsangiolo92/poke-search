@@ -35,7 +35,7 @@ const MoveSelectionDisplay: FC = () => {
 
   return (
     <>
-      <span>Currently Selected Moves</span>
+      <span style={{ fontFamily: "Roboto" }}>Currently Selected Moves</span>
       <div style={selectedMovesContainerStyles}>
         {selectedMoves.map((move: Move) => (
           <div key={move.id} style={selectedMoveStyles}>

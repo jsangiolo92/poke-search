@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { Card, CardHeader, CardMedia } from "@material-ui/core";
 import { Pokemon } from "../../types";
+import { typeColorMap } from "../../data/type-color-map";
 
 type PokemonCardProps = {
   pokemon: Pokemon;
@@ -9,11 +10,19 @@ type PokemonCardProps = {
 const cardStyle = {
   width: "20%",
   margin: "1rem",
+  height: "9rem",
+};
+
+const cardHeaderStyle = {
+  fontFamily: "Roboto",
+  margin: "1rem 0 0 1rem",
+  fontSize: "1.5rem",
+  letterSpacing: "0.1rem",
 };
 
 const imageStyle = {
-  width: "5rem",
-  height: "5rem",
+  width: "6rem",
+  height: "6rem",
 };
 
 const titleContainerStyle = {
@@ -23,8 +32,17 @@ const titleContainerStyle = {
 
 const typesContainerStyle = {
   display: "flex",
-  justifyContent: "space-evenly" as "space-evenly",
-  margin: "0 0 0.5rem 0",
+  justifyContent: "start",
+};
+
+const baseTypeStyle = {
+  fontFamily: "roboto",
+  color: "white",
+  padding: "0.25rem",
+  width: "40%",
+  textAlign: "center" as "center",
+  borderRadius: "15%",
+  margin: "0.5rem",
 };
 
 const PokemonCard: FC<PokemonCardProps> = ({ pokemon }: PokemonCardProps) => {
@@ -34,17 +52,15 @@ const PokemonCard: FC<PokemonCardProps> = ({ pokemon }: PokemonCardProps) => {
   return (
     <Card style={cardStyle}>
       <div style={titleContainerStyle}>
-        <CardHeader title={name}></CardHeader>
+        <div style={cardHeaderStyle}>{name}</div>
         <CardMedia image={imageUrl} style={imageStyle}></CardMedia>
       </div>
-      <div>
-        {" "}
-        Types:
-        <div style={typesContainerStyle}>
-          {types.map((t, index) => (
-            <span key={index}>{t}</span>
-          ))}
-        </div>
+      <div style={typesContainerStyle}>
+        {types.map((t, index) => (
+          <span key={index} style={{ ...baseTypeStyle, background: typeColorMap[t] }}>
+            {t.toUpperCase()}
+          </span>
+        ))}
       </div>
     </Card>
   );

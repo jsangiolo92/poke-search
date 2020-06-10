@@ -7,11 +7,17 @@ type TypeButtonsProps = {
   selectType: (text: string, val: string) => void;
 };
 
+const headerStyles = {
+  fontFamily: "Roboto",
+  color: "#3f51b5",
+  padding: "0.5rem",
+};
+
 const TypeButtons: FC<TypeButtonsProps> = ({ selectType }: TypeButtonsProps) => {
   return (
-    <>
-      <span>Filter by Pokemon Type</span>
-      <Grid container>
+    <div>
+      <span style={headerStyles}>Filter by Pokemon Type</span>
+      <Grid container style={{ margin: "0.5rem 0 0 0" }}>
         {typeButtonData.map((data, index) => {
           const props = { ...data, clickHandler: selectType };
           if (index % 3 === 0) {
@@ -25,7 +31,7 @@ const TypeButtons: FC<TypeButtonsProps> = ({ selectType }: TypeButtonsProps) => 
           }
         })}
       </Grid>
-    </>
+    </div>
   );
 };
 
