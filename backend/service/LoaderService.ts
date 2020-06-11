@@ -4,7 +4,7 @@ import { Logger } from "./Logger";
 
 const damageClass = "damage_class";
 const versionGroupDetails = "version_group_details";
-const levelLearnAt = "level_learn_at";
+const levelLearnedAt = "level_learned_at";
 const moveLearnMethod = "move_learn_method";
 const versionGroup = "version_group";
 
@@ -108,11 +108,16 @@ export class LoaderService {
 
   private extractVersionMoveData = (movesArray) => {
     return movesArray.map((move) => {
-      return {
-        level: move[levelLearnAt],
+      const obj = {
         learnMethod: move[moveLearnMethod].name,
         version: move[versionGroup].name,
       };
+
+      if (move[levelLearnedAt] > 0) {
+        return { ...obj, level: move[levelLearnedAt] };
+      }
+
+      return obj;
     });
   };
 
