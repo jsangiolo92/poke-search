@@ -10,12 +10,10 @@ type PokemonCardProps = {
 };
 
 const PokemonCard: FC<PokemonCardProps> = ({ pokemon }: PokemonCardProps) => {
-  const { id, name, moves, types } = pokemon;
-
   return (
     <Card style={styles.cardStyle}>
-      <PokemonCardHeader id={id} name={name}></PokemonCardHeader>
-      <PokemonCardBody types={types}></PokemonCardBody>
+      <PokemonCardHeader {...pokemon}></PokemonCardHeader>
+      <PokemonCardBody types={pokemon.types}></PokemonCardBody>
     </Card>
   );
 };

@@ -14,5 +14,6 @@ export default {
   titleContainerStyle: {
     display: "flex",
     justifyContent: "space-around" as "space-around",
+    cursor: "pointer",
   },
 };

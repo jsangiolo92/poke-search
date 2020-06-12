@@ -2,24 +2,12 @@ import React, { FC, useContext, useEffect, useState } from "react";
 import { RouteComponentProps } from "@reach/router";
 import { PokemonContext } from "../../context/PokemonContext";
 import { MovesContext } from "../../context/MovesContext";
-import { Pokemon } from "../../types";
+import { FiltersContext } from "../../context/FiltersContext";
 import ResultsHeader from "./ResultsHeader/ResultsHeader";
 import FilterSections from "./FiltersSection/FilterSections";
 import PokemonCardList from "./PokemonCardList/PokemonCardList";
-
-type FilterState = {
-  moves: string[];
-  pokemonType: string;
-  version: string;
-  learnMethod: string;
-};
-
-const initialFilterState = {
-  moves: [],
-  pokemonType: null,
-  version: null,
-  learnMethod: null,
-};
+import PokemonDetails from "../PokemonDetails/PokemonDetails";
+import { Pokemon } from "../../types";
 
 const initialDisplayState = {
   id: 0,
@@ -33,9 +21,9 @@ const PokemonResults: FC<RouteComponentProps> = (props: RouteComponentProps) => 
   const {
     selectedMovesState: { selectedMoves },
   } = useContext(MovesContext);
+  const { filtersState: filters, dispatch: filtersDispatch } = useContext(FiltersContext);
 
   const [displayedPokemon, setDisplayedPokmeon] = useState<Pokemon[]>([initialDisplayState]);
-  const [filters, setFilters] = useState<FilterState>(initialFilterState);
 
   useEffect(() => runMovesFilter(), [pokemonState, selectedMoves]);
 
@@ -51,18 +39,23 @@ const PokemonResults: FC<RouteComponentProps> = (props: RouteComponentProps) => 
       setDisplayedPokmeon(initialDisplayData);
     }
 
-    setFilters({
-      ...initialFilterState,
-      moves: selectedMoves.map((selectedMove) => selectedMove.name),
+    filtersDispatch({
+      type: "CLEAR",
+      filters: {
+        moves: selectedMoves.map((selectedMove) => selectedMove.name),
+      },
     });
   };
 
   const applyTypeFilter = (pokemonType: string, displayText: string) => {
     const results = displayedPokemon.filter((pokemon) => pokemon.types.includes(pokemonType.toLowerCase()));
     setDisplayedPokmeon(results);
-    setFilters({
-      ...filters,
-      pokemonType: displayText,
+    filtersDispatch({
+      type: "UPDATE_FILTERS",
+      filters: {
+        ...filters,
+        pokemonType: displayText,
+      },
     });
   };
 
@@ -73,9 +66,12 @@ const PokemonResults: FC<RouteComponentProps> = (props: RouteComponentProps) => 
       });
     });
     setDisplayedPokmeon(results);
-    setFilters({
-      ...filters,
-      version: displayText,
+    filtersDispatch({
+      type: "UPDATE_FILTERS",
+      filters: {
+        ...filters,
+        version: displayText,
+      },
     });
   };
 
@@ -86,9 +82,12 @@ const PokemonResults: FC<RouteComponentProps> = (props: RouteComponentProps) => 
       });
     });
     setDisplayedPokmeon(results);
-    setFilters({
-      ...filters,
-      learnMethod: displayText,
+    filtersDispatch({
+      type: "UPDATE_FILTERS",
+      filters: {
+        ...filters,
+        learnMethod: displayText,
+      },
     });
   };
 
@@ -100,6 +99,7 @@ const PokemonResults: FC<RouteComponentProps> = (props: RouteComponentProps) => 
         selectVersion={applyVersionFilter}
         selectLearnMethod={applyLearnMethodFilter}
       />
+      <PokemonDetails />
       <PokemonCardList displayedPokemon={displayedPokemon} runMovesFilter={runMovesFilter} />
     </>
   );

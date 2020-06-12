@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Grid } from "@material-ui/core";
 import FilterButton from "../FilterButton/FilterButton";
-import verionButtonData from "../../data/version-data";
+import { verionButtonData } from "../../data/version-data";
 
 type VersionButtonsProps = {
   selectVersion: (text: string, val: string) => void;
