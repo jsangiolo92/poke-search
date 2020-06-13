@@ -27,7 +27,7 @@ const MovesList: FC = () => {
 
   const updateSearchResults = () => {
     setRowLimit(24);
-    const searchResults = allMoves.filter((m) => m.name.includes(searchState));
+    const searchResults = allMoves.filter((m) => m.name.includes(searchState.toLowerCase()));
     setFilteredMoves(searchResults);
   };
 
