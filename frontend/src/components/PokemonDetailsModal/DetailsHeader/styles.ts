@@ -1,8 +1,4 @@
 export default {
-  labelStyles: {
-    margin: "1rem 0 0 0",
-  },
-
   headerStyles: {
     display: "flex",
     flexDirection: "row" as "row",
@@ -32,13 +28,5 @@ export default {
 
   iconContainerStyles: {
     display: "flex",
-  },
-
-  movesEntryStyles: {
-    padding: "0.25rem 0 0.25rem 0",
-  },
-
-  moveNameStyles: {
-    margin: "1rem 0 0 0",
   },
 };

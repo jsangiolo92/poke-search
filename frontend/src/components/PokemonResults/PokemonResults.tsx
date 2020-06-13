@@ -6,7 +6,7 @@ import { FiltersContext } from "../../context/FiltersContext";
 import ResultsHeader from "./ResultsHeader/ResultsHeader";
 import FilterSections from "./FiltersSection/FilterSections";
 import PokemonCardList from "./PokemonCardList/PokemonCardList";
-import PokemonDetails from "../PokemonDetails/PokemonDetails";
+import PokemonDetailsModal from "../PokemonDetailsModal/PokemonDetailsModal";
 import { Pokemon } from "../../types";
 
 const initialDisplayState = {
@@ -99,7 +99,7 @@ const PokemonResults: FC<RouteComponentProps> = (props: RouteComponentProps) => 
         selectVersion={applyVersionFilter}
         selectLearnMethod={applyLearnMethodFilter}
       />
-      <PokemonDetails />
+      <PokemonDetailsModal />
       <PokemonCardList displayedPokemon={displayedPokemon} runMovesFilter={runMovesFilter} />
     </>
   );
