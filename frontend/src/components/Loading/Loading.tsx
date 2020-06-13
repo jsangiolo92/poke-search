@@ -1,15 +1,9 @@
 import React, { FC } from "react";
-
-const styles = {
-  position: "fixed" as "fixed",
-  top: "50%",
-  left: "50%",
-  fontSize: "2rem",
-};
+import styles from "./styles";
 
 const Loading: FC = () => {
   return (
-    <div style={styles}>
+    <div style={styles.loadingStyles}>
       <span>Loading...</span>
     </div>
   );

@@ -1,10 +1,7 @@
 import React, { FC } from "react";
 import { navigate } from "@reach/router";
 import { Button } from "@material-ui/core";
-
-const buttonStyle = {
-  margin: "0 1rem 0 1rem",
-};
+import styles from "./styles";
 
 const BackButton: FC = () => {
   const goBack = () => {
@@ -12,7 +9,7 @@ const BackButton: FC = () => {
   };
 
   return (
-    <Button variant={"contained"} color="primary" onClick={goBack} style={buttonStyle}>
+    <Button variant={"contained"} color="primary" onClick={goBack} style={styles.buttonStyle}>
       Back to Search
     </Button>
   );

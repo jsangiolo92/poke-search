@@ -2,22 +2,17 @@ import React, { FC } from "react";
 import { Grid } from "@material-ui/core";
 import FilterButton from "../FilterButton/FilterButton";
 import typeButtonData from "../../data/type-data";
+import styles from "./styles";
 
-type TypeButtonsProps = {
+type Props = {
   selectType: (text: string, val: string) => void;
 };
 
-const headerStyles = {
-  fontFamily: "Roboto",
-  color: "#3f51b5",
-  padding: "0.5rem",
-};
-
-const TypeButtons: FC<TypeButtonsProps> = ({ selectType }: TypeButtonsProps) => {
+const TypeButtons: FC<Props> = ({ selectType }: Props) => {
   return (
     <div>
-      <span style={headerStyles}>Filter by Pokemon Type</span>
-      <Grid container style={{ margin: "0.5rem 0 0 0" }}>
+      <span style={styles.headerStyles}>Filter by Pokemon Type</span>
+      <Grid container style={styles.containerStyles}>
         {typeButtonData.map((data, index) => {
           const props = { ...data, clickHandler: selectType };
           if (index % 3 === 0) {

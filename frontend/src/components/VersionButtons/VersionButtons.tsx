@@ -2,22 +2,17 @@ import React, { FC } from "react";
 import { Grid } from "@material-ui/core";
 import FilterButton from "../FilterButton/FilterButton";
 import { verionButtonData } from "../../data/version-data";
+import styles from "./styles";
 
-type VersionButtonsProps = {
+type Props = {
   selectVersion: (text: string, val: string) => void;
 };
 
-const headerStyles = {
-  fontFamily: "Roboto",
-  color: "#3f51b5",
-  padding: "0.5rem",
-};
-
-const VersionButtons: FC<VersionButtonsProps> = ({ selectVersion }: VersionButtonsProps) => {
+const VersionButtons: FC<Props> = ({ selectVersion }: Props) => {
   return (
     <>
-      <span style={headerStyles}>Filter by Game Version</span>
-      <Grid container style={{ margin: "0.5rem 0 0 0" }}>
+      <span style={styles.headerStyles}>Filter by Game Version</span>
+      <Grid container style={styles.containerStyles}>
         {verionButtonData.map((data, index) => {
           const props = { ...data, clickHandler: selectVersion };
           if (index % 4 === 0) {

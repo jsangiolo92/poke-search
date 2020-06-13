@@ -1,10 +1,7 @@
 import React, { FC, useContext } from "react";
 import { SearchContext } from "../../context/SearchContext";
 import { TextField } from "@material-ui/core";
-
-const inputStyle = {
-  margin: "0.5rem 0 0 0 ",
-};
+import styles from "./styles";
 
 const MoveSearchBar: FC = () => {
   const { searchState, dispatch } = useContext(SearchContext);
@@ -23,7 +20,7 @@ const MoveSearchBar: FC = () => {
       onChange={(e) => handleChange(e.target.value)}
       variant="outlined"
       fullWidth
-      style={inputStyle}
+      style={styles.inputStyle}
     ></TextField>
   );
 };

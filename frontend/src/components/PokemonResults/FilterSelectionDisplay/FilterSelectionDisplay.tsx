@@ -1,7 +1,8 @@
 import React, { FC } from "react";
 import { Breadcrumbs } from "@material-ui/core";
+import styles from "./styles";
 
-type FilterSelectionDisplayProps = {
+type Props = {
   filters: {
     moves: string[];
     pokemonType: string;
@@ -10,15 +11,11 @@ type FilterSelectionDisplayProps = {
   };
 };
 
-const textStyle = {
-  fontWeight: "bold" as "bold",
-};
-
-const FilterSelectionDisplay: FC<FilterSelectionDisplayProps> = ({ filters }: FilterSelectionDisplayProps) => {
+const FilterSelectionDisplay: FC<Props> = ({ filters }: Props) => {
   const { moves, pokemonType, version, learnMethod } = filters;
 
   return (
-    <Breadcrumbs style={textStyle}>
+    <Breadcrumbs style={styles.textStyle}>
       <span>
         Displaying Pokemon who can learn
         <span>{" " + moves.join(", ")}</span>

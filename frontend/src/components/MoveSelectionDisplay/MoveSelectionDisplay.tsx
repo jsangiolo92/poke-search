@@ -1,43 +1,11 @@
 import React, { FC, useContext } from "react";
 import { navigate } from "@reach/router";
 import { MovesContext } from "../../context/MovesContext";
-import { Button, IconButton } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import { Move } from "../../types";
 import { typeColorMap } from "../../data/type-color-map";
-
-const selectedMovesContainerStyles = {
-  display: "flex",
-  flexDirection: "row" as "row",
-  flexWrap: "wrap" as "wrap",
-};
-
-const selectedMoveStyles = {
-  fontFamily: "Roboto",
-  margin: "0.5rem 0.5rem 0.5rem",
-  color: "white",
-};
-
-const selectedMoveBackgroundStyles = {
-  borderRadius: "15%",
-  padding: "0.5rem",
-  margin: "0.5rem 0 0 0.5rem",
-  minWidth: "6rem",
-  height: "1rem",
-  display: "flex",
-  alignItems: "center",
-};
-
-const selectedMoveButtonStyles = {
-  marginLeft: "auto",
-  background: "white",
-  borderRadius: "50%",
-  cursor: "pointer",
-};
-
-const buttonStyles = {
-  margin: "0.5rem 0.5rem",
-};
+import styles from "./styles";
 
 const MoveSelectionDisplay: FC = () => {
   const {
@@ -64,17 +32,15 @@ const MoveSelectionDisplay: FC = () => {
 
   return (
     <>
-      <div style={{ display: "flex", flexDirection: "row" }}>
-        <span style={{ fontFamily: "Roboto", padding: "0.5rem", margin: "0.5rem 0 0 0" }}>
-          Currently Selected Moves
-        </span>
-        <div style={selectedMovesContainerStyles}>
+      <div style={styles.containerStyles}>
+        <span style={styles.textStyles}>Currently Selected Moves</span>
+        <div style={styles.selectedMovesContainerStyles}>
           {selectedMoves.map((move: Move) => (
-            <div key={move.id} style={{ ...selectedMoveBackgroundStyles, background: typeColorMap[move.type] }}>
-              <span style={selectedMoveStyles}>{move.name}</span>
+            <div key={move.id} style={{ ...styles.selectedMoveBackgroundStyles, background: typeColorMap[move.type] }}>
+              <span style={styles.selectedMoveStyles}>{move.name}</span>
               <HighlightOffIcon
                 color="secondary"
-                style={selectedMoveButtonStyles}
+                style={styles.selectedMoveButtonStyles}
                 onClick={() => removeSelectedMove(move)}
               ></HighlightOffIcon>
             </div>
@@ -87,7 +53,7 @@ const MoveSelectionDisplay: FC = () => {
           variant={"contained"}
           color="primary"
           onClick={goToResults}
-          style={buttonStyles}
+          style={styles.buttonStyles}
         >
           Search Pokemon
         </Button>

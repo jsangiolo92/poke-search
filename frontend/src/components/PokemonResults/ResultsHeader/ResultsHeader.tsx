@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import FilterSelectionDisplay from "../../FilterSelectionDisplay/FilterSelectionDisplay";
+import FilterSelectionDisplay from "../FilterSelectionDisplay/FilterSelectionDisplay";
 import BackButton from "../BackButton/BackButton";
 import ClearFiltersButton from "../ClearFiltersButton/ClearFiltersButton";
 import styles from "./styles";

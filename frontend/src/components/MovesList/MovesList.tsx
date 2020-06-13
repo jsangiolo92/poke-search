@@ -4,11 +4,7 @@ import { MovesContext } from "../../context/MovesContext";
 import { SearchContext } from "../../context/SearchContext";
 import Loading from "../Loading/Loading";
 import { Move } from "../../types";
-
-const containerStyle = {
-  display: "flex",
-  flexWrap: "wrap" as "wrap",
-};
+import styles from "./styles";
 
 const MovesList: FC = () => {
   const {
@@ -24,7 +20,7 @@ const MovesList: FC = () => {
 
   window.onscroll = () => {
     const diff = document.documentElement.offsetHeight - document.documentElement.scrollTop - window.innerHeight;
-    if (diff <= 0.5) {
+    if (diff <= 1) {
       setRowLimit(rowLimit + 4);
     }
   };
@@ -67,7 +63,7 @@ const MovesList: FC = () => {
 
   return (
     <>
-      <div style={containerStyle}>
+      <div style={styles.containerStyle}>
         {!!displayedMoves.length &&
           displayedMoves.map((m) => {
             const selected = selectedMoves.some((selectedMove: Move) => selectedMove.id === m.id);
