@@ -1,9 +1,10 @@
 import React, { FC, useContext, useState, useEffect } from "react";
 import { MovesContext } from "../../context/MovesContext";
-import { Card, CardMedia, Grid } from "@material-ui/core";
+import { Card } from "@material-ui/core";
+import MoveCardHeader from "./MoveCardHeader/MoveCardHeader";
+import MoveCardBody from "./MoveCardBody/MoveCardBody";
 import { Move } from "../../types";
-import { typeIconMap } from "../../data/icon-links";
-import { typeColorMap } from "../../data/type-color-map";
+import styles from "./styles";
 
 type MoveCardProps = {
   moveData: Move;
@@ -18,35 +19,6 @@ type CardStyle = {
   minWidth: string;
 };
 
-const cardInfoContainer = {
-  display: "flex",
-  justifyContent: "start",
-  margin: "2rem 0 0 0",
-};
-
-const cardHeaderStyle = {
-  fontFamily: "Roboto",
-  margin: "1rem 0 0 1rem",
-  fontSize: "1.3rem",
-};
-
-const imageStyle = {
-  margin: "1rem 0 0 0",
-  width: "2rem",
-  height: "2rem",
-};
-
-const baseTypeStyle = {
-  fontFamily: "roboto",
-  color: "white",
-  padding: "0.25rem",
-  width: "40%",
-  textAlign: "center" as "center",
-  borderRadius: "15%",
-  margin: "0.5rem",
-  background: "black",
-};
-
 const MoveCard: FC<MoveCardProps> = ({ moveData, selected }: MoveCardProps) => {
   const { name, type, damageClass } = moveData;
   const {
@@ -54,13 +26,7 @@ const MoveCard: FC<MoveCardProps> = ({ moveData, selected }: MoveCardProps) => {
     dispatch,
   } = useContext(MovesContext);
 
-  const [cardStyle, setCardStyle] = useState<CardStyle>({
-    width: "20%",
-    margin: "1rem",
-    background: "white",
-    minHeight: "8rem",
-    minWidth: "15rem",
-  });
+  const [cardStyle, setCardStyle] = useState<CardStyle>(styles.baseStyle);
 
   useEffect(() => {
     setCardStyle({ ...cardStyle, background: selected ? "#A7DB8D" : "white" });
@@ -83,18 +49,8 @@ const MoveCard: FC<MoveCardProps> = ({ moveData, selected }: MoveCardProps) => {
   };
   return (
     <Card style={cardStyle} onClick={() => selectMove(moveData)}>
-      <Grid container spacing={2}>
-        <Grid item xs={8} style={cardHeaderStyle}>
-          {name}
-        </Grid>
-        <Grid item xs={2}>
-          <CardMedia image={typeIconMap[type]} style={imageStyle}></CardMedia>
-        </Grid>
-      </Grid>
-      <div style={cardInfoContainer}>
-        <span style={{ ...baseTypeStyle, background: typeColorMap[type] }}>{type.toUpperCase()}</span>
-        <span style={{ ...baseTypeStyle, background: typeColorMap[damageClass] }}>{damageClass.toUpperCase()}</span>
-      </div>
+      <MoveCardHeader name={name} type={type} />
+      <MoveCardBody type={type} damageClass={damageClass} />
     </Card>
   );
 };
