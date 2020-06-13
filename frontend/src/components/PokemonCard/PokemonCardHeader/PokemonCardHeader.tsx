@@ -34,6 +34,12 @@ const PokemonCardHeader: FC<Props> = ({ id, name, moves, types }: Props) => {
       }, []);
     }
 
+    filteredMoves.forEach((move: MoveWithVersionData) => {
+      move.versionData = move.versionData.filter(
+        (obj: VersionData) => obj.version !== "xd" && obj.version !== "colosseum",
+      );
+    });
+
     if (filters.version) {
       filteredMoves.forEach((move: MoveWithVersionData) => {
         const targetVersion = versionTextMap[filters.version];

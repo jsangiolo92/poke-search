@@ -2,6 +2,7 @@ import React, { FC, useContext } from "react";
 import { ModalDetailsContext } from "../../context/ModalDetailsContext";
 import { Modal, Fade, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import VersionLabel from "./VersionLabel/VersionLabel";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -19,7 +20,6 @@ const PokemonDetails: FC = () => {
   const classes = useStyles();
   const { detailsState, dispatch } = useContext(ModalDetailsContext);
 
-  console.log("detailsState: ", detailsState);
   const { details, open } = detailsState;
   console.log("details are: ", details);
 
@@ -46,20 +46,39 @@ const PokemonDetails: FC = () => {
         <Fade in={open}>
           <div style={getModalStyle()} className={classes.paper}>
             <div>{details.name}</div>
+            <Grid container>
+              <Grid item xs={3}>
+                Move
+              </Grid>
+              <Grid item xs={3}>
+                Version
+              </Grid>
+              <Grid item xs={3}>
+                Method
+              </Grid>
+              <Grid item xs={3}>
+                Level
+              </Grid>
+            </Grid>
             {details.moves &&
               details.moves.map((move, moveIdx) => {
                 return (
                   <Grid container key={moveIdx}>
                     <Grid item>{move.name}</Grid>
-                    <Grid container>
-                      {move.versionData.map((obj, objIdx) => {
-                        return (
-                          <Grid item key={objIdx} xs={12} style={{ margin: "0 0 0 2rem" }}>
-                            {obj.version}
+                    {move.versionData.map((obj, objIdx) => {
+                      return (
+                        <Grid container>
+                          <Grid item xs={3}></Grid>
+                          <Grid item xs={3} key={objIdx}>
+                            <VersionLabel entry={obj.version} />
                           </Grid>
-                        );
-                      })}
-                    </Grid>
+                          <Grid item xs={3}>
+                            {obj.learnMethod}
+                          </Grid>
+                          {obj.level && <Grid>{obj.level}</Grid>}
+                        </Grid>
+                      );
+                    })}
                   </Grid>
                 );
               })}
