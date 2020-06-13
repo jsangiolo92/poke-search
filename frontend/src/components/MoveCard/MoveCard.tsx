@@ -15,6 +15,7 @@ type CardStyle = {
   margin: string;
   background: string;
   minHeight: string;
+  minWidth: string;
 };
 
 const cardInfoContainer = {
@@ -58,6 +59,7 @@ const MoveCard: FC<MoveCardProps> = ({ moveData, selected }: MoveCardProps) => {
     margin: "1rem",
     background: "white",
     minHeight: "8rem",
+    minWidth: "15rem",
   });
 
   useEffect(() => {
