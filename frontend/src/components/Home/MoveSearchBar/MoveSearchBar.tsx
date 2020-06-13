@@ -1,5 +1,5 @@
 import React, { FC, useContext } from "react";
-import { SearchContext } from "../../context/SearchContext";
+import { SearchContext } from "../../../context/SearchContext";
 import { TextField } from "@material-ui/core";
 import styles from "./styles";
 

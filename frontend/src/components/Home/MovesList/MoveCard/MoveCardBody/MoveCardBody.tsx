@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { typeColorMap } from "../../../data/type-color-map";
+import { typeColorMap } from "../../../../../data/type-color-map";
 import styles from "./styles";
 
 type Props = {

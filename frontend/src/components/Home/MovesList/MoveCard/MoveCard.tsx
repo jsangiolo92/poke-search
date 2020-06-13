@@ -1,9 +1,9 @@
 import React, { FC, useContext, useState, useEffect } from "react";
-import { MovesContext } from "../../context/MovesContext";
+import { MovesContext } from "../../../../context/MovesContext";
 import { Card } from "@material-ui/core";
 import MoveCardHeader from "./MoveCardHeader/MoveCardHeader";
 import MoveCardBody from "./MoveCardBody/MoveCardBody";
-import { Move } from "../../types";
+import { Move } from "../../../../types";
 import styles from "./styles";
 
 type MoveCardProps = {

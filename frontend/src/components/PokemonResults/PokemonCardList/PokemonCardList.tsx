@@ -3,7 +3,7 @@ import { Pokemon } from "../../../types";
 import BackButton from "../BackButton/BackButton";
 import ClearFiltersButton from "../ClearFiltersButton/ClearFiltersButton";
 import Loading from "../../Loading/Loading";
-import PokemonCard from "../../PokemonCard/PokemonCard";
+import PokemonCard from "./PokemonCard/PokemonCard";
 import styles from "./styles";
 
 type Props = {

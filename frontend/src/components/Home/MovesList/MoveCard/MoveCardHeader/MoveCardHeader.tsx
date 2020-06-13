@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Grid, CardMedia } from "@material-ui/core";
-import { typeIconMap } from "../../../data/icon-links";
+import { typeIconMap } from "../../../../../data/icon-links";
 import styles from "./styles";
 
 type Props = {

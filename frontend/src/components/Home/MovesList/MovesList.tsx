@@ -1,9 +1,9 @@
 import React, { FC, useState, useEffect, useContext } from "react";
-import MoveCard from "../MoveCard/MoveCard";
-import { MovesContext } from "../../context/MovesContext";
-import { SearchContext } from "../../context/SearchContext";
-import Loading from "../Loading/Loading";
-import { Move } from "../../types";
+import MoveCard from "./MoveCard/MoveCard";
+import { MovesContext } from "../../../context/MovesContext";
+import { SearchContext } from "../../../context/SearchContext";
+import Loading from "../../Loading/Loading";
+import { Move } from "../../../types";
 import styles from "./styles";
 
 const MovesList: FC = () => {

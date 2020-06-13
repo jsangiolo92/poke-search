@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useContext } from "react";
 import { RouteComponentProps } from "@reach/router";
 import { PokemonContext } from "../../context/PokemonContext";
-import MovesList from "../MovesList/MovesList";
-import MoveSelectionDisplay from "../MoveSelectionDisplay/MoveSelectionDisplay";
-import MoveSearchBar from "../MoveSearchBar/MoveSearchBar";
+import MovesList from "./MovesList/MovesList";
+import MoveSelectionDisplay from "./MoveSelectionDisplay/MoveSelectionDisplay";
+import MoveSearchBar from "./MoveSearchBar/MoveSearchBar";
 
 const Home: FC<RouteComponentProps> = (props: RouteComponentProps) => {
   const { pokemonState, dispatch } = useContext(PokemonContext);

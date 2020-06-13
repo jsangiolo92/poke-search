@@ -1,10 +1,10 @@
 import React, { FC, useContext } from "react";
 import { navigate } from "@reach/router";
-import { MovesContext } from "../../context/MovesContext";
+import { MovesContext } from "../../../context/MovesContext";
 import { Button } from "@material-ui/core";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
-import { Move } from "../../types";
-import { typeColorMap } from "../../data/type-color-map";
+import { Move } from "../../../types";
+import { typeColorMap } from "../../../data/type-color-map";
 import styles from "./styles";
 
 const MoveSelectionDisplay: FC = () => {

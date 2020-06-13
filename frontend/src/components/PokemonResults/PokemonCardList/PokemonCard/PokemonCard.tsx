@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { Card } from "@material-ui/core";
 import PokemonCardHeader from "./PokemonCardHeader/PokemonCardHeader";
 import PokemonCardBody from "./PokemonCardBody/PokemonCardBody";
-import { Pokemon } from "../../types";
+import { Pokemon } from "../../../../types";
 import styles from "./styles";
 
 type PokemonCardProps = {
