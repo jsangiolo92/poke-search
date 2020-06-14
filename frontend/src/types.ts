@@ -5,7 +5,8 @@ export interface Move {
   damageClass: string;
 }
 
-type VersionData = {
+export type VersionData = {
+  level?: number;
   learnMethod: string;
   version: string;
 };

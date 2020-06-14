@@ -1,3 +1,34 @@
+const versionTextMap = {
+  Red: "red-blue",
+  Blue: "red-blue",
+  Yellow: "yellow",
+  Gold: "gold-silver",
+  Silver: "gold-silver",
+  Crystal: "crystal",
+  Ruby: "ruby-sapphire",
+  Saphhire: "ruby-sapphire",
+  Emerald: "emerald",
+  "Fire Red": "firered-leafgreen",
+  "Leaf Green": "firered-leafgreen",
+  Diamond: "diamond-pearl",
+  Pearl: "diamond-pearl",
+  Platinum: "platinum",
+  "Heart Gold": "heartgold-soulsilver",
+  "Soul Silver": "heartgold-soulsilver",
+  Black: "black-white",
+  White: "black-white",
+  "Black 2": "black-2-white-2",
+  "White 2": "black-2-white-2",
+  X: "x-y",
+  Y: "x-y",
+  "Omega Ruby": "omega-ruby-alpha-sapphire",
+  "Alpha Sapphire": "omega-ruby-alpha-sapphire",
+  Sun: "sun-moon",
+  Moon: "sun-moon",
+  "Ultra Sun": "ultra-sun-ultra-moon",
+  "Ultra Moon": "ultra-sun-ultra-moon",
+};
+
 const baseButtonStyle = {
   maxWidth: "10rem",
   minWidth: "10rem",
@@ -315,4 +346,4 @@ const verionButtonData = [
   ultraMoon,
 ];
 
-export default verionButtonData;
+export { verionButtonData, versionTextMap };

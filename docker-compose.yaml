@@ -7,4 +7,9 @@ services:
       - 6740:6739
     volumes:
       - ./backend/config/redis-dev.conf:/redis.conf
+      - redis-volume:/data
     command: ["redis-server", "/redis.conf"]
+
+volumes:
+  redis-volume:
+    external: false

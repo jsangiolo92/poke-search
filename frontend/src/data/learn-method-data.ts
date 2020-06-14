@@ -1,5 +1,12 @@
 import { returnArrowIcon, returnSaveIcon, returnChildIcon, returnSchoolIcon } from "./learn-method-icons";
 
+const learnMethodTextMap = {
+  "Level Up": "level-up",
+  "Technical Machine": "machine",
+  Breeding: "egg",
+  Tutor: "tutor",
+};
+
 const baseButtonStyle = {
   width: "100%",
   display: "flex",
@@ -41,4 +48,4 @@ const tutor = {
 
 const learnMethodButtonData = [levelUp, machine, breeding, tutor];
 
-export default learnMethodButtonData;
+export { learnMethodButtonData, learnMethodTextMap };

@@ -1,50 +1,13 @@
 import React, { FC, useContext, useEffect, useState } from "react";
-import { RouteComponentProps, navigate } from "@reach/router";
+import { RouteComponentProps } from "@reach/router";
 import { PokemonContext } from "../../context/PokemonContext";
 import { MovesContext } from "../../context/MovesContext";
-import { Grid, Button } from "@material-ui/core";
-import PokemonCard from "../PokemonCard/PokemonCard";
-import TypeButtons from "../TypeButtons/TypeButtons";
-import VersionButtons from "../VersionButtons/VersionButtons";
-import LearnMethodButtons from "../LearnMethodButtons/LearnMethodButtons";
-import FilterSelectionDisplay from "../FilterSelectionDisplay/FilterSelectionDisplay";
-import Loading from "../Loading/Loading";
+import { FiltersContext } from "../../context/FiltersContext";
+import ResultsHeader from "./ResultsHeader/ResultsHeader";
+import FilterSections from "./FiltersSection/FilterSections";
+import PokemonCardList from "./PokemonCardList/PokemonCardList";
+import PokemonDetailsModal from "../PokemonDetailsModal/PokemonDetailsModal";
 import { Pokemon } from "../../types";
-
-type FilterState = {
-  moves: string[];
-  pokemonType: string;
-  version: string;
-  learnMethod: string;
-};
-
-const containerStyle = {
-  display: "flex",
-  flexWrap: "wrap" as "wrap",
-};
-
-const buttonStyle = {
-  margin: "0 1rem 0 1rem",
-};
-
-const buttonContainerStyle = {
-  display: "flex",
-  margin: "1rem 0 2rem 0",
-};
-
-const noResultsContainerStyle = {
-  display: "flex",
-  width: "50%",
-  margin: "auto",
-  padding: "5rem",
-};
-
-const initialFilterState = {
-  moves: [],
-  pokemonType: null,
-  version: null,
-  learnMethod: null,
-};
 
 const initialDisplayState = {
   id: 0,
@@ -58,9 +21,9 @@ const PokemonResults: FC<RouteComponentProps> = (props: RouteComponentProps) => 
   const {
     selectedMovesState: { selectedMoves },
   } = useContext(MovesContext);
+  const { filtersState: filters, dispatch: filtersDispatch } = useContext(FiltersContext);
 
   const [displayedPokemon, setDisplayedPokmeon] = useState<Pokemon[]>([initialDisplayState]);
-  const [filters, setFilters] = useState<FilterState>(initialFilterState);
 
   useEffect(() => runMovesFilter(), [pokemonState, selectedMoves]);
 
@@ -76,18 +39,23 @@ const PokemonResults: FC<RouteComponentProps> = (props: RouteComponentProps) => 
       setDisplayedPokmeon(initialDisplayData);
     }
 
-    setFilters({
-      ...initialFilterState,
-      moves: selectedMoves.map((selectedMove) => selectedMove.name),
+    filtersDispatch({
+      type: "CLEAR",
+      filters: {
+        moves: selectedMoves.map((selectedMove) => selectedMove.name),
+      },
     });
   };
 
   const applyTypeFilter = (pokemonType: string, displayText: string) => {
     const results = displayedPokemon.filter((pokemon) => pokemon.types.includes(pokemonType.toLowerCase()));
     setDisplayedPokmeon(results);
-    setFilters({
-      ...filters,
-      pokemonType: displayText,
+    filtersDispatch({
+      type: "UPDATE_FILTERS",
+      filters: {
+        ...filters,
+        pokemonType: displayText,
+      },
     });
   };
 
@@ -98,9 +66,12 @@ const PokemonResults: FC<RouteComponentProps> = (props: RouteComponentProps) => 
       });
     });
     setDisplayedPokmeon(results);
-    setFilters({
-      ...filters,
-      version: displayText,
+    filtersDispatch({
+      type: "UPDATE_FILTERS",
+      filters: {
+        ...filters,
+        version: displayText,
+      },
     });
   };
 
@@ -111,69 +82,25 @@ const PokemonResults: FC<RouteComponentProps> = (props: RouteComponentProps) => 
       });
     });
     setDisplayedPokmeon(results);
-    setFilters({
-      ...filters,
-      learnMethod: displayText,
+    filtersDispatch({
+      type: "UPDATE_FILTERS",
+      filters: {
+        ...filters,
+        learnMethod: displayText,
+      },
     });
-  };
-
-  const goBack = () => {
-    navigate(-1);
-  };
-
-  const renderPokemonCards = () => {
-    if (displayedPokemon.length === 1 && displayedPokemon[0].id === 0) {
-      return <Loading />;
-    }
-
-    if (!displayedPokemon.length) {
-      return (
-        <div style={noResultsContainerStyle}>
-          <span>No Results for current Filters</span>
-          <Button variant={"contained"} color="primary" onClick={goBack} style={buttonStyle}>
-            Back to Search
-          </Button>
-          <Button variant={"outlined"} color="secondary" onClick={runMovesFilter} style={buttonStyle}>
-            Remove Filters
-          </Button>
-        </div>
-      );
-    }
-
-    return (
-      <div style={containerStyle}>
-        {displayedPokemon.map((pokemon) => (
-          <PokemonCard pokemon={pokemon} key={pokemon.id} />
-        ))}
-      </div>
-    );
   };
 
   return (
     <>
-      <div style={buttonContainerStyle}>
-        <Button variant={"contained"} color="primary" onClick={goBack} style={buttonStyle}>
-          Back to Search
-        </Button>
-        <FilterSelectionDisplay filters={filters} />
-        {filters.pokemonType || filters.version || filters.learnMethod ? (
-          <Button variant={"outlined"} color="secondary" onClick={runMovesFilter} style={buttonStyle}>
-            Remove Filters
-          </Button>
-        ) : null}
-      </div>
-      <Grid container>
-        <Grid item xs={3}>
-          <TypeButtons selectType={applyTypeFilter} />
-        </Grid>
-        <Grid item xs={6}>
-          <VersionButtons selectVersion={applyVersionFilter} />
-        </Grid>
-        <Grid item xs={2}>
-          <LearnMethodButtons selectLearnMethod={applyLearnMethodFilter} />
-        </Grid>
-      </Grid>
-      {renderPokemonCards()}
+      <ResultsHeader filters={filters} runMovesFilter={runMovesFilter} />
+      <FilterSections
+        selectType={applyTypeFilter}
+        selectVersion={applyVersionFilter}
+        selectLearnMethod={applyLearnMethodFilter}
+      />
+      <PokemonDetailsModal />
+      <PokemonCardList displayedPokemon={displayedPokemon} runMovesFilter={runMovesFilter} />
     </>
   );
 };
