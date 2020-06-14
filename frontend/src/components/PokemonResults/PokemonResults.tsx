@@ -27,10 +27,6 @@ const PokemonResults: FC<RouteComponentProps> = (props: RouteComponentProps) => 
 
   useEffect(() => runMovesFilter(), [pokemonState, selectedMoves]);
 
-  useEffect(() => {
-    console.log("filtered results ==> ", displayedPokemon);
-  }, [displayedPokemon]);
-
   const runMovesFilter = () => {
     if (pokemonState.length && selectedMoves.length) {
       const initialDisplayData = pokemonState.filter((pokemon) => {

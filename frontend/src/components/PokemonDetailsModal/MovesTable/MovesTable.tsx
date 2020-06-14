@@ -1,8 +1,9 @@
 import React, { FC } from "react";
-import { Grid } from "@material-ui/core";
+import { Grid, Divider } from "@material-ui/core";
 import DetailsTableBody from "./DetailsTableBody/DetailsTableBody";
 import MoveLabel from "./MoveLabel/MoveLabel";
 import { MoveWithVersionData } from "../../../types";
+import styles from "./styles";
 
 type Props = {
   moves: MoveWithVersionData[];
@@ -16,6 +17,7 @@ const MovesTable: FC<Props> = ({ moves, formatName }: Props) => {
         return (
           <Grid container key={moveIdx}>
             <MoveLabel formatName={formatName} moveName={move.name} />
+            <Divider style={styles.dividerStyles} />
             <DetailsTableBody versionEntries={move.versionData} />
           </Grid>
         );
