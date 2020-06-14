@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import { Grid } from "@material-ui/core";
-import TypeButtons from "../../TypeButtons/TypeButtons";
-import VersionButtons from "../../VersionButtons/VersionButtons";
-import LearnMethodButtons from "../../LearnMethodButtons/LearnMethodButtons";
+import TypeButtons from "../../Buttons/TypeButtons/TypeButtons";
+import VersionButtons from "../../Buttons/VersionButtons/VersionButtons";
+import LearnMethodButtons from "../../Buttons/LearnMethodButtons/LearnMethodButtons";
 
 type Props = {
   selectType: (text: string, val: string) => void;

@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Grid } from "@material-ui/core";
-import { learnMethodButtonData } from "../../data/learn-method-data";
+import { learnMethodButtonData } from "../../../data/learn-method-data";
 import FilterButton from "../FilterButton/FilterButton";
 import styles from "./styles";
 

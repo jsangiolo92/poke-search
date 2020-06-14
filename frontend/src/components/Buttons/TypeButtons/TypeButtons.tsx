@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Grid } from "@material-ui/core";
 import FilterButton from "../FilterButton/FilterButton";
-import typeButtonData from "../../data/type-data";
+import typeButtonData from "../../../data/type-data";
 import styles from "./styles";
 
 type Props = {

@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Button } from "@material-ui/core";
+import CoreButton from "../../Buttons/CoreButton/CoreButton";
 import styles from "./styles";
 
 type Props = {
@@ -8,9 +8,13 @@ type Props = {
 
 const ClearFiltersButton: FC<Props> = ({ runMovesFilter }: Props) => {
   return (
-    <Button variant={"outlined"} color="secondary" onClick={runMovesFilter} style={styles.buttonStyle}>
-      Remove Filters
-    </Button>
+    <CoreButton
+      variant={"outlined"}
+      color="secondary"
+      handleClick={runMovesFilter}
+      styles={styles.buttonStyle}
+      text={"Remove Filters"}
+    />
   );
 };
 
