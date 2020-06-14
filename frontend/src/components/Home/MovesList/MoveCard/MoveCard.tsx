@@ -17,6 +17,7 @@ type CardStyle = {
   background: string;
   minHeight: string;
   minWidth: string;
+  cursor: string;
 };
 
 const MoveCard: FC<MoveCardProps> = ({ moveData, selected }: MoveCardProps) => {

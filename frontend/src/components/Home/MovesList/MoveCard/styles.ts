@@ -5,5 +5,6 @@ export default {
     background: "white",
     minHeight: "8rem",
     minWidth: "15rem",
+    cursor: "pointer",
   },
 };
