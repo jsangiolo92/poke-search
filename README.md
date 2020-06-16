@@ -21,19 +21,20 @@ Deployed in an EC2 instance
 ### Resources that helped along the way
 [The Pokemon API](https://pokeapi.co/)  
 [André Ilhicas dos Santos's guide on using Let's Encrypt w/ Docker](https://ilhicas.com/2019/03/02/Nginx-Letsencrypt-Docker.html)  
+[Mozilla reference for SSL Nginx confg](https://ssl-config.mozilla.org/)  
 [John Sorrentino's incredible favicon.io](https://favicon.io/)  
 
 ## Installing / Running Locally
 While certainly not intended to be run via localhost, it is possible to do so.  
 ```
-# from the root directory spin up a instance of Redis using the dev config
+# from the root directory spin up a instance of Redis using the dev config provided
 docker-compose up -d 
 
 // start the Express server
 cd backend
 npm i
 
-// create an .env file with the following values:
+// create an .env file in the /backend folder with the following values:
 /*
 NODE_ENV=development
 PORT={choose a port}
@@ -53,7 +54,7 @@ cd ..
 cd frontend
 npm i
 
-// create an .env.development file with the following values:
+// create an .env.development file in the /frontend folder with the following values:
 /*
 NODE_ENV=development
 URL=http://localhost:{port selected above}
