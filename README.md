@@ -25,49 +25,41 @@ Deployed in an EC2 instance
 [John Sorrentino's incredible favicon.io](https://favicon.io/)  
 
 ## Installing / Running Locally
-While certainly not intended to be run via localhost, it is possible to do so.  
+While certainly not intended to be run via localhost, it is possible to do so. Please note, these steps will involve creating/modifying files labeled for production, however, the NODE_ENV value will be set to 'development' - this is intentional.
 ```
-# from the root directory spin up a instance of Redis using the dev config provided
-docker-compose up -d 
+// from the root directory build the frontend and backend apps
+sh build-all.sh
 
-// start the Express server
-cd backend
-npm i
+// rename the /backend/config/redis-dev.conf to backend/confg/redis-prod.conf
 
-// create an .env file in the /backend folder with the following values:
+// create an .env.production file in the /backend folder with the following values:
 /*
 NODE_ENV=development
-PORT={choose a port}
-REDIS_HOST=localhost
-REDIS_PORT={choose a port}
-REDIS_AUTH=none
+PORT=8080
+REDIS_HOST=redis
+REDIS_PORT=6739
 MOVE_LIMIT=729
 POKEMON_LIMIT=808
 */
 
-npm run start-dev
 
-// go back to the root directory
-cd ..
-
-// start a server to serve the frontend
-cd frontend
-npm i
-
-// create an .env.development file in the /frontend folder with the following values:
+// create an .env.production file in the /frontend folder with the following values:
 /*
 NODE_ENV=development
-URL=http://localhost:{port selected above}
+URL=http://localhost
 IMAGE_URL=https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon
 */
 
-npm run start-dev
+// start the docker network
+docker-compose -f ./docker-compose-smoke.yaml up --build -d
 
 // you will now need to populate Redis with the necessary moves and Pokemon data.
 // send the following two PUT requests
-http://localhost:{port-you-selected}/moveTypes
-http://localhost:{port-you-selected}/pokemon
+http://localhost:8080/moveTypes
+http://localhost:8080/pokemon
 
 // due to API request limits, each action will take about 10 minutes
+
+// you'll be able to access the app on http://localhost
 
 ```
