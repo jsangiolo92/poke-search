@@ -60,7 +60,7 @@ docker-compose -f ./docker-compose-smoke.yaml up --build -d
 http://localhost:8080/moveTypes
 http://localhost:8080/pokemon
 
-// due to API request limits, each action will take about 10 minutes
+# due to API request limits, each action will take about 10 minutes
 
 # you'll be able to access the app on http://localhost
 
