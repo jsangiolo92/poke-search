@@ -27,9 +27,9 @@ Deployed in an EC2 instance
 ## Installing / Running Locally
 While certainly not intended to be run via localhost, it is possible to do so. Please note, these steps will involve creating/modifying files labeled for production, however, the NODE_ENV value will be set to 'development' - this is intentional.
 ```
-// rename the /backend/config/redis-dev.conf to backend/confg/redis-prod.conf
+# rename the /backend/config/redis-dev.conf to backend/confg/redis-prod.conf
 
-// create an .env.production file in the /backend folder with the following values:
+# create an .env.production file in the /backend folder with the following values:
 /*
 NODE_ENV=development
 PORT=8080
@@ -40,28 +40,28 @@ POKEMON_LIMIT=808
 */
 
 
-// create an .env.production file in the /frontend folder with the following values:
+# create an .env.production file in the /frontend folder with the following values:
 /*
 NODE_ENV=development
 URL=http://localhost
 IMAGE_URL=https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon
 */
 
-// from the root directory build the frontend and backend apps
+# from the root directory build the frontend and backend apps
 sh build-all.sh
 
-// create a docker volume to persist Redis data
+# create a docker volume to persist Redis data
 docker volume create redis-volume
 
-// start the docker network
+# start the docker network
 docker-compose -f ./docker-compose-smoke.yaml up --build -d
 
-// send the following two PUT requests to populate Redis with the necessary moves and Pokemon data.
+# send the following two PUT requests to populate Redis with the necessary moves and Pokemon data.
 http://localhost:8080/moveTypes
 http://localhost:8080/pokemon
 
 // due to API request limits, each action will take about 10 minutes
 
-// you'll be able to access the app on http://localhost
+# you'll be able to access the app on http://localhost
 
 ```
