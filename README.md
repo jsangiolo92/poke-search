@@ -27,9 +27,6 @@ Deployed in an EC2 instance
 ## Installing / Running Locally
 While certainly not intended to be run via localhost, it is possible to do so. Please note, these steps will involve creating/modifying files labeled for production, however, the NODE_ENV value will be set to 'development' - this is intentional.
 ```
-// from the root directory build the frontend and backend apps
-sh build-all.sh
-
 // rename the /backend/config/redis-dev.conf to backend/confg/redis-prod.conf
 
 // create an .env.production file in the /backend folder with the following values:
@@ -49,6 +46,9 @@ NODE_ENV=development
 URL=http://localhost
 IMAGE_URL=https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon
 */
+
+// from the root directory build the frontend and backend apps
+sh build-all.sh
 
 // start the docker network
 docker-compose -f ./docker-compose-smoke.yaml up --build -d
