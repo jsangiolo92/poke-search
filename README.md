@@ -53,8 +53,7 @@ IMAGE_URL=https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokem
 // start the docker network
 docker-compose -f ./docker-compose-smoke.yaml up --build -d
 
-// you will now need to populate Redis with the necessary moves and Pokemon data.
-// send the following two PUT requests
+// send the following two PUT requests to populate Redis with the necessary moves and Pokemon data.
 http://localhost:8080/moveTypes
 http://localhost:8080/pokemon
 
