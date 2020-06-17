@@ -14,6 +14,9 @@ services:
     build: ./proxy/http
     ports:
       - 80:80
+    depends_on:
+      - backend
+      - frontend
 
   backend:
     container_name: poke-search-server
@@ -30,3 +33,7 @@ services:
     restart: unless-stopped
     ports:
       - 8081:80
+
+volumes:
+  redis-volume:
+    external: false
