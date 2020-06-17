@@ -50,6 +50,9 @@ IMAGE_URL=https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokem
 // from the root directory build the frontend and backend apps
 sh build-all.sh
 
+// create a docker volume to persist Redis data
+docker volume create redis-volume
+
 // start the docker network
 docker-compose -f ./docker-compose-smoke.yaml up --build -d
 
