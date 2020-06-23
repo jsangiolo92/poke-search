@@ -7,6 +7,7 @@ import ResultsHeader from "./ResultsHeader/ResultsHeader";
 import FilterSections from "./FiltersSection/FilterSections";
 import PokemonCardList from "./PokemonCardList/PokemonCardList";
 import PokemonDetailsModal from "../PokemonDetailsModal/PokemonDetailsModal";
+import { filterVersionDataByVersion, filterVersionDataByLearnMethod } from "../../filters";
 import { Pokemon } from "../../types";
 
 const initialDisplayState = {
@@ -25,13 +26,27 @@ const PokemonResults: FC<RouteComponentProps> = (props: RouteComponentProps) => 
 
   const [displayedPokemon, setDisplayedPokmeon] = useState<Pokemon[]>([initialDisplayState]);
 
+  useEffect(() => {
+    if (process.env.NODE_ENV === "development") {
+      console.log("filtered results => ", displayedPokemon);
+    }
+  }, [displayedPokemon]);
+
   useEffect(() => runMovesFilter(), [pokemonState, selectedMoves]);
 
   const runMovesFilter = () => {
     if (pokemonState.length && selectedMoves.length) {
-      const initialDisplayData = pokemonState.filter((pokemon) => {
-        return selectedMoves.every((move) => pokemon.moves.hasOwnProperty(move.name));
-      });
+      const initialDisplayData = pokemonState.reduce((arr, pokemon) => {
+        if (selectedMoves.every((move) => pokemon.moves.hasOwnProperty(move.name))) {
+          const filteredMoves = selectedMoves.reduce((obj, move) => {
+            obj[move.name] = { ...pokemon.moves[move.name] };
+            return obj;
+          }, {});
+          arr.push({ ...pokemon, moves: filteredMoves });
+        }
+        return arr;
+      }, []);
+
       setDisplayedPokmeon(initialDisplayData);
     }
 
@@ -61,6 +76,9 @@ const PokemonResults: FC<RouteComponentProps> = (props: RouteComponentProps) => 
         return movesForPokemon[moveName].versionData.some((versionObj) => versionObj.version === version);
       });
     });
+
+    filterVersionDataByVersion(results, version);
+
     setDisplayedPokmeon(results);
     filtersDispatch({
       type: "UPDATE_FILTERS",
@@ -77,6 +95,9 @@ const PokemonResults: FC<RouteComponentProps> = (props: RouteComponentProps) => 
         return movesForPokemon[moveName].versionData.some((verionObj) => verionObj.learnMethod === learnMethod);
       });
     });
+
+    filterVersionDataByLearnMethod(results, learnMethod);
+
     setDisplayedPokmeon(results);
     filtersDispatch({
       type: "UPDATE_FILTERS",
