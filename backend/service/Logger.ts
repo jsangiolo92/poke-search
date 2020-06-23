@@ -3,9 +3,7 @@ import winston, { format } from "winston";
 export class Logger {
   private logger: any;
   constructor() {
-    if (process.env.NODE_ENV === "development") {
-      this.logger = console;
-    } else {
+    if (process.env.NODE_ENV === "production") {
       this.logger = winston.createLogger({
         level: "info",
         format: format.combine(
@@ -16,6 +14,8 @@ export class Logger {
         ),
         transports: [new winston.transports.Console()],
       });
+    } else {
+      this.logger = console;
     }
   }
 

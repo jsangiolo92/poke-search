@@ -11,8 +11,8 @@ type Props = {
 const SelectedMoveList: FC<Props> = ({ selectedMoves, removeSelectedMove }: Props) => {
   return (
     <div style={styles.selectedMovesContainerStyles}>
-      {selectedMoves.map((move: Move) => (
-        <SelectedMoveItem move={move} removeSelectedMove={removeSelectedMove} />
+      {selectedMoves.map((move: Move, idx) => (
+        <SelectedMoveItem key={idx} move={move} removeSelectedMove={removeSelectedMove} />
       ))}
     </div>
   );

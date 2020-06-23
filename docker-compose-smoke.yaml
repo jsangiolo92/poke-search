@@ -7,6 +7,7 @@ services:
       - 6741:6739
     volumes:
       - ./backend/config/redis-prod.conf:/redis.conf
+      - redis-volume:/data
     command: ["redis-server", "/redis.conf"]
 
   proxy:
@@ -14,6 +15,9 @@ services:
     build: ./proxy/http
     ports:
       - 80:80
+    depends_on:
+      - backend
+      - frontend
 
   backend:
     container_name: poke-search-server
@@ -30,3 +34,7 @@ services:
     restart: unless-stopped
     ports:
       - 8081:80
+
+volumes:
+  redis-volume:
+    external: false
