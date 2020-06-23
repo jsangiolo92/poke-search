@@ -1,9 +1,6 @@
 import React, { FC, useContext, useState, useEffect } from "react";
-import { FiltersContext } from "../../../../../context/FiltersContext";
 import { ModalDetailsContext } from "../../../../../context/ModalDetailsContext";
 import { CardMedia } from "@material-ui/core";
-import { versionTextMap } from "../../../../../data/version-data";
-import { learnMethodTextMap } from "../../../../../data/learn-method-data";
 import { MoveWithVersionData, VersionData } from "../../../../../types";
 import styles from "./styles";
 
