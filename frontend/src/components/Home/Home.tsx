@@ -18,7 +18,8 @@ const Home: FC<RouteComponentProps> = (props: RouteComponentProps) => {
             type: "UPDATE_POKEMON",
             pokemon: pokemonArray,
           });
-        });
+        })
+        .catch(console.error);
     }
   };
 
