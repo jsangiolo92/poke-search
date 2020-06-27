@@ -19,6 +19,21 @@ export const mockPokemon = {
   types: ["grass"],
 };
 
+export const mockTransformedPokemon = {
+  id: 4,
+  moves: [
+    {
+      id: 1,
+      damageClass: "physical",
+      name: "pound",
+      type: "normal",
+      versionData: [{ learnMethod: "machine", version: "red-blue" }],
+    },
+  ],
+  name: "Bulbasaur",
+  types: ["grass"],
+};
+
 export const mockMovesContext = {
   dispatch: jest.fn(),
   selectedMovesState: { selectedMoves: [mockMove], allMoves: [] },
@@ -31,5 +46,13 @@ export const mockSearchContext = {
 
 export const mockPokemonContext = {
   dispatch: jest.fn(),
-  pokemonState: [mockPokemon],
+  pokemonState: [mockPokemon] as any,
+};
+
+export const mockDetailsContext = {
+  dispatch: jest.fn(),
+  detailsState: {
+    details: { ...mockPokemon },
+    open: false,
+  },
 };

@@ -1,4 +1,4 @@
-import { Pokemon, VersionData } from "./types";
+import { Pokemon, VersionData } from "../types";
 export const filterVersionDataByVersion = (results, version) => {
   results.forEach((pokemonStateObj: Pokemon) => {
     Object.keys(pokemonStateObj.moves).forEach((moveName) => {
