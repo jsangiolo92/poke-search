@@ -42,7 +42,8 @@ const MovesList: FC = () => {
             type: "LOAD_ALL_MOVES",
             allMoves: movesArray,
           });
-        });
+        })
+        .catch(console.error);
     }
 
     searchDispatch({
