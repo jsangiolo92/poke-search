@@ -6,7 +6,7 @@ import ResultsHeader from "./ResultsHeader/ResultsHeader";
 import FilterSections from "./FiltersSection/FilterSections";
 import PokemonCardList from "./PokemonCardList/PokemonCardList";
 import PokemonDetailsModal from "../PokemonDetailsModal/PokemonDetailsModal";
-import { filterVersionDataByVersion, filterVersionDataByLearnMethod } from "../../filters";
+import { filterVersionDataByVersion, filterVersionDataByLearnMethod } from "../../utils/filters";
 import { Pokemon } from "../../types";
 
 type FilterState = {

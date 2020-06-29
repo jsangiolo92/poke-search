@@ -14,6 +14,7 @@ const SelectedMoveItem: FC<Props> = ({ move, removeSelectedMove }: Props) => {
     <div key={move.id} style={{ ...styles.selectedMoveBackgroundStyles, background: typeColorMap[move.type] }}>
       <span style={styles.selectedMoveStyles}>{move.name}</span>
       <HighlightOffIcon
+        data-testid="xIcon"
         color="secondary"
         style={styles.selectedMoveButtonStyles}
         onClick={() => removeSelectedMove(move)}
