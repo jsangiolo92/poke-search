@@ -52,7 +52,7 @@ export const mockPokemonContext = {
 export const mockDetailsContext = {
   dispatch: jest.fn(),
   detailsState: {
-    details: { ...mockPokemon },
+    details: { ...mockTransformedPokemon },
     open: false,
   },
 };
