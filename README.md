@@ -7,16 +7,24 @@ https://poke-search.io
 
 ### Tech Stack
 React Hooks & Context w/ TypeScript on the frontend  
-Express.js server w/ Typescript on the backend  
-Redis cache to store Pokemon & Moves data  
+AWS Lambdas written in TypeScript used to access Pokemon JSON objects in S3   
+
+Originally an Express.js server w/ Typescript and Redis cache to store Pokemon & Moves data  
 
 ### Deployment Stack
+React App and JSON data stored in S3   
+AWS CloudFront to serve the static content and AWS Gateway + Lambdas to fetch data   
+
+Running the app locally would use the original stack:   
 React App, Express server, and Redis cache deployed in a Docker Network  
 Nginx used as a reverse proxy  
 Deployed in an EC2 instance  
 
-### Diagram
-![Alt text](/architecture.png?raw=true "Project Diagram")
+### Diagram of Serverless Architecture
+![Alt text](/serverless-diagram.png?raw=true "Serverless Project Diagram")
+
+### Diagram of Original Architecture
+![Alt text](/architecture.png?raw=true "Original Project Diagram")
 
 ### Resources that helped along the way
 [The Pokemon API](https://pokeapi.co/)  
